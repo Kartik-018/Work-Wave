@@ -1,70 +1,35 @@
 package com.ninja.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import lombok.Data;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Data
+public class IssueDTO {
+   private Long id;
+   private String title;
+   private String description;
+   private String status;
+   private Long projectId;
+   private String priority;
+   private LocalDate dueDate;
 
-public class Issue {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+   private List<String>tags=new ArrayList<>();
+   private Project project;
+   private User assignee;
 
-    private String title;
-    private String description;
-    private String status;
-    private Long projectID;
-    private String priority;
-    private LocalDate dueDate;
-    private List<String> tags=new ArrayList<>();
+   public IssueDTO(){}
 
-    @ManyToOne
-    private User assignee;
-
-    @JsonIgnore
-    @ManyToOne
-    private Project project;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "issue",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Comment> comments=new ArrayList<>();
-
-    public Issue(){}
-
-    public Issue(Long id, String title, String description, String status, Long projectID, String priority, LocalDate dueDate, List<String> tags, User assignee, Project project, List<Comment> comments) {
+    public IssueDTO(Long id, String title, String description, String status, Long projectId, String priority, LocalDate dueDate, List<String> tags, Project project, User assignee) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.status = status;
-        this.projectID = projectID;
+        this.projectId = projectId;
         this.priority = priority;
         this.dueDate = dueDate;
         this.tags = tags;
+        this.project = project;
         this.assignee = assignee;
-        this.project = project;
-        this.comments = comments;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
     }
 
     public Long getId() {
@@ -99,12 +64,12 @@ public class Issue {
         this.status = status;
     }
 
-    public Long getProjectID() {
-        return projectID;
+    public Long getProjectId() {
+        return projectId;
     }
 
-    public void setProjectID(Long projectID) {
-        this.projectID = projectID;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
     public String getPriority() {
@@ -131,6 +96,14 @@ public class Issue {
         this.tags = tags;
     }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
     public User getAssignee() {
         return assignee;
     }
@@ -138,6 +111,4 @@ public class Issue {
     public void setAssignee(User assignee) {
         this.assignee = assignee;
     }
-
-
 }
