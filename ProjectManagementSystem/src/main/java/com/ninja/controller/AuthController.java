@@ -1,11 +1,13 @@
 package com.ninja.controller;
 
 import com.ninja.config.JwtProvider;
+import com.ninja.model.Subscription;
 import com.ninja.model.User;
 import com.ninja.repository.UserRepository;
 import com.ninja.request.LoginRequest;
 import com.ninja.response.AuthResponse;
 import com.ninja.service.CustomUserDetailsImpl;
+import com.ninja.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,9 @@ public class AuthController {
     @Autowired
     private CustomUserDetailsImpl customUserDetails;
 
+    @Autowired
+    private SubscriptionService subscriptionService;
+
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse>createUserHandler(@RequestBody User user) throws Exception {
         User isUserExist=userRepository.findByEmail(user.getEmail());
@@ -44,6 +49,8 @@ public class AuthController {
         createdUser.setFullName(user.getFullName());
 
         User savedUser=userRepository.save(createdUser);
+
+        subscriptionService.createSubscription(savedUser);
         Authentication authentication=new UsernamePasswordAuthenticationToken(user.getEmail(),user.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 

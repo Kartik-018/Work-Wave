@@ -33,7 +33,7 @@
 Thumbs.db
 
 # Ignore application properties file
-src/main/resources/application.properties
+ProjectManagementSystem/src/main/resources/application.properties
 
 # Ignore IDE specific files
 .vscode/
