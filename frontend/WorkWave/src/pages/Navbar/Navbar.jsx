@@ -5,8 +5,16 @@ import CreateProjectForm from "../Project/CreateProjectForm";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { PersonIcon } from "@radix-ui/react-icons";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { store } from "../Redux/Store";
+import { logout } from "../Redux/Auth/Action";
 const Navbar=()=>{
     const navigate=useNavigate();
+    const {auth}=useSelector(store=>store);
+    const dispatch=useDispatch();
+    const handleLogout=()=>{
+        dispatch(logout());
+    };
     return(
         <>
         <div className="border-b py-4 px-5 items-center justify-between flex">
@@ -30,13 +38,13 @@ const Navbar=()=>{
                             <PersonIcon/>
                         </Button>
                         <DropdownMenuContent>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem onClick={handleLogout}>
                                 Logout
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenuTrigger>
                 </DropdownMenu>
-                <p>Kartik Dhandhala</p>
+                <p>{auth.user?.fullName}</p>
             </div>
         </div>
         </>

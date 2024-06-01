@@ -4,9 +4,12 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { Input } from "@/components/ui/input";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { login } from "../Redux/Auth/Action";
 
 
 const Login = () => {
+    const dispatch=useDispatch();
 
     const form=useForm({
         
@@ -18,7 +21,8 @@ const Login = () => {
     })
 
     const onSubmit=(data)=>{
-        console.log("Create project data",data);
+        dispatch(login(data));
+        console.log("user login data data",data);
     }
 
   return (
@@ -76,7 +80,7 @@ const Login = () => {
 
 
 
-                <Button type="submit" className="w-full mt-5">Register</Button>
+                <Button type="submit" className="w-full mt-5">Login</Button>
            
         </form>
     </Form> 

@@ -32,7 +32,7 @@ const projectReducer=(state=initialState,action)=>{
                     (project)=>project.id===action.projectId),
             }
         default:
-           state;
+          return state;
     }
 }
 export default projectReducer;
