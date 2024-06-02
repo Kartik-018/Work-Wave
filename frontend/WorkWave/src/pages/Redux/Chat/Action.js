@@ -7,6 +7,7 @@ export const sendMessage=(messageData)=>{
         try{
             const response=await api.post("/api/messages/send",messageData);
             dispatch({type:SEND_MESSAGE_SUCCESS,message:response.data})
+            console.log("Message sent:",response.data);
         }
         catch(error)
         {
