@@ -10,12 +10,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { getUser } from './pages/Redux/Auth/Action'
 import { store } from './pages/Redux/Store'
+import { fetchProjects } from './pages/Redux/Project/Action'
 
 function App() {
   const dispatch=useDispatch();
   const {auth}=useSelector(store=>store)
   useEffect(()=>{
     dispatch(getUser())
+    dispatch(fetchProjects({}))
   },[auth.jwt])
   console.log(auth);
   return (

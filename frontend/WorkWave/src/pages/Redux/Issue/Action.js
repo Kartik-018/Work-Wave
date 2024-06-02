@@ -70,9 +70,10 @@ export const createIssue=(issueData)=>{
     return async(dispatch)=>{
         dispatch({type:CREATE_ISSUE_REQUEST});
         try{
-            const response=await api.post(`/api/issues`,issueData);
-            console.log("create issue",response.data);
+            const response=await api.post("/api/issues",issueData);
+            
             dispatch({type:CREATE_ISSUE_SUCCESS,issue:response.data});
+            console.log("issue created successfully",response.data);
         }
         catch(error)
         {

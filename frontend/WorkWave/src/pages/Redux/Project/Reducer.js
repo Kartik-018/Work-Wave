@@ -29,7 +29,7 @@ const projectReducer=(state=initialState,action)=>{
             return {...state,
                 loading:false,
                 projects:state.projects.filter(
-                    (project)=>project.id===action.projectId),
+                    (project)=>project.id!==action.projectId),
             }
         default:
           return state;

@@ -53,8 +53,9 @@ export const getUser=()=>async(dispatch)=>{
 }
 
 export const logout=()=>async(dispatch)=>{
+    // localStorage.clear();
     dispatch({type:LOGOUT,})
-    localStorage.clear();
+    
 }
 //Get method don't need body but post method need request body because in get method we want to
 //retrive data from specific resource ,but in post method we send data to server so data object can be more complex
