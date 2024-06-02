@@ -1,7 +1,7 @@
 import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { Tabs } from "@radix-ui/react-tabs";
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CreateCommentForm from "./CreateCommentForm";
 import CommentCard from "./CommentCard";
@@ -14,16 +14,24 @@ import {
   } from "@/components/ui/select"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchIssueById, updateIssueStatus } from "../Redux/Issue/Action";
+import { store } from "../Redux/Store";
+import { fetchComments } from "../Redux/Comment/Action";
   
 
 const IssueDetails=()=>{
     const{projectId,issueId}=useParams();
-
-    const handleUpdateIssuStatus=(select)=>{
-        console.log(select);
-
-    }
-
+    const dispatch=useDispatch();
+    const {issue,comment}=useSelector(store=>store)
+    const handleUpdateIssuStatus=(status)=>{
+        dispatch(updateIssueStatus({id:issueId,status:status}))
+        console.log(status);
+    };
+    useEffect(()=>{
+       dispatch(fetchIssueById(issueId));
+       dispatch(fetchComments(issueId));
+    },[issueId])
     return (
         
         
@@ -34,12 +42,12 @@ const IssueDetails=()=>{
            <ScrollArea className="h-[80vh] w-[60%]">
 
             <div className>
-                <h1 className="text-lg fomt-semibold text-gray-400">Create Navbar</h1>
+                <h1 className="text-lg fomt-semibold text-gray-400">{issue.issueDetails?.title} </h1>
            
                 <div className="py-5">
                     <h2 className="font-semibold text-gray-400">Description</h2>
                 
-                    <p className="text-gray-400 text-sm mt-3">lorem fbhdss kfdkfbf fsdbf fusdufbd bsdfsdbf fsbufs vsbukvk</p>
+                    <p className="text-gray-400 text-sm mt-3">{issue.issueDetails?.description}</p>
                 
                 </div>
            
@@ -70,7 +78,7 @@ const IssueDetails=()=>{
 
                             <div className="mt-8 space-y-6"> 
                             {
-                                [1,1,1].map((item)=> <CommentCard key={item}/>)
+                               comment.comments.map((item)=> <CommentCard item={item} key={item.key}/>)
                             }
 
                             </div>
@@ -111,14 +119,14 @@ const IssueDetails=()=>{
                             <div className="flex gap-10 item-center">
 
                                 <p className="w-[7rem]">Assignee</p>
-                                <div className="flex items-center gap-3">
+                                {issue.issueDetails?.assignee?<div className="flex items-center gap-3">
                                     <Avatar className="h-8 w-8 text-xs">
                                         <AvatarFallback>
-                                            C
+                                           {issue.issueDetails?.assignee.fullName[0]}
                                         </AvatarFallback>
                                     </Avatar>
-                                    <p>code with VD</p>
-                                </div>
+                                    <p>{issue.issueDetails?.assignee.fullName}</p>
+                                </div>:<p>Unassigned</p>}
                             </div>
 
                             <div className="flex gap-10 item-center">
@@ -130,7 +138,7 @@ const IssueDetails=()=>{
                             <div className="flex gap-10 item-center">
 
                                 <p className="w-[7rem]">Status</p>
-                                <Badge>in_progress</Badge>
+                                <Badge>{issue.issueDetails?.status}</Badge>
                             </div>
 
                             <div className="flex gap-10 item-center">

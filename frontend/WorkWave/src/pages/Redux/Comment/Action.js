@@ -6,8 +6,9 @@ export const createComment=(commentData)=>{
         dispatch({type:CREATE_COMMENT_REQUEST});
         try{
             const  response=await api.post(`/api/comments`,commentData);
-            console.log("created comment",response.data);
+            
             dispatch({type:CREATE_COMMENT_SUCCESS,comment:response.data});
+            console.log("created comment",response.data);
         }
         catch(error)
         {
@@ -23,6 +24,7 @@ export const deleteComment=(commentId)=>{
         try{
             const  response=await api.delete(`/api/comments/${commentId}`);
             dispatch({type:DELETE_COMMENT_SUCCESS,commentId});
+            console.log("deleted comment",response.data);
         }
         catch(error)
         {
@@ -38,6 +40,7 @@ export const fetchComments=(issueId)=>{
         try{
             const  response=await api.get(`/api/comments/${issueId}`);
             dispatch({type:FETCH_COMMENTS_SUCCESS,comments:response.data});
+            console.log("fetch commnets",response.data);
         }
         catch(error)
         {

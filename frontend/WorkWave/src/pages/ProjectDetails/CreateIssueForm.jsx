@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { createIssue } from "../Redux/Issue/Action";
 import { useParams } from "react-router-dom";
 
-const CreateIssueForm=()=>{
+const CreateIssueForm=({status})=>{
     const {id}=useParams();
     const dispatch=useDispatch();
 
@@ -25,7 +25,8 @@ const CreateIssueForm=()=>{
         dispatch(createIssue({
             title: data.issueName,
             description:data.description,
-            projectId:id
+            projectId:id,
+            status,
         }
         ));
         console.log("Create issue data",data);

@@ -7,8 +7,9 @@ export const fetchIssues=(id)=>{
         dispatch({type:FETCH_ISSUES_REQUEST});
         try{
             const response=await api.get(`/api/issues/project/${id}`);
-            console.log("fetch issues",response.data);
+            
             dispatch({type:FETCH_ISSUES_SUCCESS,issues:response.data});
+            console.log("fetch issues",response.data);
         }
         catch(error)
         {
@@ -38,9 +39,9 @@ export const updateIssueStatus=({id,status})=>{
     return async(dispatch)=>{
         dispatch({type:UPDATE_ISSUE_STATUS_REQUEST});
         try{
-            const response=await api.put(`/api/issues//${id}/status/${status}`);
-            console.log("Update issue status",response.data);
+            const response=await api.put(`/api/issues/${id}/status/${status}`);
             dispatch({type:UPDATE_ISSUE_STATUS_SUCCESS,issues:response.data});
+            console.log("Update issue status",response.data);
         }
         catch(error)
         {

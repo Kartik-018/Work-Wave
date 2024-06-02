@@ -4,10 +4,12 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/component
 import { Input } from '@/components/ui/input';
 import React from 'react'
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { createComment } from '../Redux/Comment/Action';
 
 
 const CreateCommentForm = ({issueId}) => {
-
+    const dispatch=useDispatch();
     const form=useForm({
         // resolver:
         defaultValues:{
@@ -16,6 +18,7 @@ const CreateCommentForm = ({issueId}) => {
     })
 
     const onSubmit=(data)=>{
+        dispatch(createComment({content:data.content,issueId}))
         console.log("Create project data",data);
     }
 

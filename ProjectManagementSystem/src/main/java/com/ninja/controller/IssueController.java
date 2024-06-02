@@ -29,6 +29,10 @@ public class IssueController {
     public ResponseEntity<Issue> getIssueById(@PathVariable Long issueId)throws Exception{
         return ResponseEntity.ok(issueService.getIssueById(issueId));
     }
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<List<Issue>> getIssueByProjectId(@PathVariable Long projectId)throws Exception{
+        return ResponseEntity.ok(issueService.getIssueByProjectId(projectId));
+    }
 
 
     @PostMapping
@@ -92,8 +96,9 @@ public class IssueController {
 
     @PutMapping("/{issueId}/status/{status}")
     public ResponseEntity<Issue> updateIssueStatus(
-            @PathVariable String status,
-            @PathVariable Long issueId
+            @PathVariable Long issueId,
+            @PathVariable String status
+
     )throws Exception{
         Issue issue=issueService.updateStatus(issueId,status);
         return ResponseEntity.ok(issue);
