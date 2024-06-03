@@ -1,7 +1,11 @@
 import React from 'react'
 import SubscriptionCard from './SubscriptionCard'
+import { useSelector } from 'react-redux';
+import { store } from '../Redux/Store';
 
 const Subscription = () => {
+
+  const {subscription}=useSelector(store=>store)
 
   const paidPlan = [
     "Add unlimited project",
@@ -39,9 +43,24 @@ const Subscription = () => {
     <div className='p-10'>
       <h1 className='text-5xl font-semibold py-5 pb-16 text-center'>Pricing</h1>
       <div className='flex flex-col lg:flex-row justify-center items-center gap-9'>
-        <SubscriptionCard data={{ planeName: "Free", fetures: freePlan, planeType: "FREE", price: 0, buttonName: true ? "current Plane" : "Get Started" }} />
-        <SubscriptionCard data={{ planeName: "Monthly Paid Plane", fetures: paidPlan, planeType: "MONTHLY", price: 799, buttonName: true ? "current Plane" : "Get Started" }} />
-        <SubscriptionCard data={{ planeName: "Annual Paid Plane", fetures: annualPlan, planeType: "ANNUALLY", price: 6711, buttonName: true ? "current Plane" : "Get Started" }} />
+        <SubscriptionCard data={{
+           planeName: "Free",
+            fetures: freePlan,
+             planeType: "FREE",
+              price: 0, 
+              buttonName: subscription.userSubscription?.planType=="FREE" ? "current Plane" : "Get Started"
+               }} />
+        <SubscriptionCard data={{
+           planeName: "Monthly Paid Plane", 
+           fetures: paidPlan, planeType: "MONTHLY",
+           price: 799, 
+           buttonName: subscription.userSubscription?.planType=="MONTHLY"  ? "current Plane" : "Get Started"
+            }} />
+        <SubscriptionCard data={{ planeName: "Annual Paid Plane",
+         fetures: annualPlan, 
+         planeType: "ANNUALLY",
+          price: 6711, 
+          buttonName: subscription.userSubscription?.planType=="ANNUALLY" ? "current Plane" : "Get Started" }} />
       </div>
     </div>
   )
