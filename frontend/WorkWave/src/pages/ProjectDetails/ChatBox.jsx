@@ -17,8 +17,8 @@ const ChatBox=()=>{
         dispatch(fetchChatByProject(id));
     },[id]);
     useEffect(()=>{
-        dispatch(fetchChatMessages(chat.chat?.id));
-    },[chat.chat?.id]);
+        dispatch(fetchChatMessages(id));
+    },[id]);
 
     const handleSendMessage=()=>{
         dispatch(sendMessage({
@@ -27,6 +27,7 @@ const ChatBox=()=>{
             content:message
         }
         ));
+        setMessage("");
         console.log("Message",message);
     }
     const handleMessageChange=(e)=>{

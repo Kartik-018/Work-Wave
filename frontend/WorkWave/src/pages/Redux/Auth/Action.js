@@ -41,6 +41,7 @@ export const getUser=()=>async(dispatch)=>{
             headers:{
                 "Authorization":`Bearer ${localStorage.getItem("jwt")}`
             },
+            
         });
                 dispatch({type:GET_USER_SUCCESS,payload:data})
 

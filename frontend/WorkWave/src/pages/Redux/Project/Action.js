@@ -66,7 +66,7 @@ export const deleteProject=({projectId})=>async(dispatch)=>{
 export const inviteToProject=({email,projectId})=>async(dispatch)=>{
     dispatch({type:INVITE_TO_PROJECT_REQUEST})
     try{
-        const {data}=await api.post("/api/projects/invite"+{email,projectId})
+        const {data}=await api.post("/api/projects/invite",{email,projectId})
         console.log("invite project",data);
         dispatch({type:INVITE_TO_PROJECT_SUCCESS,payload:data})
     }
@@ -75,13 +75,13 @@ export const inviteToProject=({email,projectId})=>async(dispatch)=>{
     }
 }
 
-export const acceptInvitation=({invitaionToken,navigate})=>async(dispatch)=>{
+export const acceptInvitation=({token,navigate})=>async(dispatch)=>{
     dispatch({type: ACCEPT_INVITATION_REQUEST})
     try{
         const {data}=await api.get("/api/projects/accept_invitaion",{
-            params:{token:invitaionToken}
+            params:{token}
         })
-        navigate("/project"+data.projectId)
+        navigate("/project/"+data.projectId)
         console.log("accept invitation",data);
         dispatch({type:ACCEPT_INVITATION_SUCCESS,payload:data})
     }

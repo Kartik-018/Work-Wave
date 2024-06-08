@@ -12,6 +12,7 @@ import { getUser } from './pages/Redux/Auth/Action'
 import { store } from './pages/Redux/Store'
 import { fetchProjects } from './pages/Redux/Project/Action'
 import UpgradeSucess from './pages/Subscription/UpgradeSucess'
+import AcceptInvitaion from './pages/Project/AcceptInvitation'
 
 function App() {
   const dispatch=useDispatch();
@@ -34,7 +35,7 @@ function App() {
       <Route path='/project/:projectId/issue/:issueId' element={<IssueDetails/>}/>
       <Route path='/upgrade_plane' element={<Subscription/>}/>
       <Route path='/upgrade_plan/success' element={<UpgradeSucess/>}/>
-     
+      <Route path='/accept_invitation' element={<AcceptInvitaion/>}/>
      </Routes>
      </div>
      
