@@ -6,12 +6,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const AcceptInvitaion=()=>{
     const dispatch=useDispatch();
-    const location=useLocation();
     const navigate=useNavigate();
+    const location=useLocation()
+    
     const handleAcceptInvitation=()=>{
-        const urlParams=new URLSearchParams(location.search);
-        const token=urlParams.get("token");
-        dispatch(acceptInvitation({token,navigate}));
+    const urlParams=new URLSearchParams(location.search);
+    const token=urlParams.get('token');
+        dispatch(acceptInvitation({token:token,navigate}));
     }
     return(
         <div className="h-[85vh] flex flex-col justify-center items-center">
